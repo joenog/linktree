@@ -10,7 +10,7 @@ export function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  function handdleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
     
     if (email === '' || password === '') {
@@ -40,7 +40,7 @@ export function Login() {
           </h1>
         </Link>
 
-        <form onSubmit={handdleSubmit} className="w-full max-w-xl flex flex-col px-4" action="">
+        <form onSubmit={handleSubmit} className="w-full max-w-xl flex flex-col px-4" action="">
           <Input 
             placeholder="Digite o seu e-mail"
             value={email}
