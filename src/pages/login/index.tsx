@@ -49,6 +49,8 @@ export function Login() {
 
           <Input
             placeholder="********"
+            type="password"
+            autoComplete="off"
             value={password}
             onChange={(e)=> setPassword(e.target.value)}
           />
