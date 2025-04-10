@@ -22,7 +22,35 @@ export function Admin() {
   const [bgColorImput, setBgColorImput] = useState("#121212");
   const [links, setLinks] = useState<LinkProps[]>([])
 
-    useEffect(() => {
+  //ADD DB LINKS
+  function handleRegister(e: FormEvent) {
+    e.preventDefault();
+    
+    if (nameImput === "" || urlImput === "") {
+      alert("Preencha os campos...")
+      return;
+    }
+
+    addDoc(collection(db, "links"), {
+      name: nameImput,
+      url: urlImput,
+      bg: bgColorImput,
+      color: textColorImput,
+      created: new Date()
+    })
+    .then(() => {
+      setNameImput("");
+      setUrlImput("");
+      console.log("Cadastrado com sucesso!")
+    })
+    .catch((error) => {
+      console.log(error + "Erro ao cadastrar no banco de dados!")
+    })
+
+  };
+
+  //READ BD LINKS
+  useEffect(() => {
     const linksRef = collection(db, "links");
     const queryRef = query(linksRef, orderBy("created", "asc"));
 
@@ -50,32 +78,7 @@ export function Admin() {
     }
   }, []);
 
-  function handleRegister(e: FormEvent) {
-    e.preventDefault();
-    
-    if (nameImput === "" || urlImput === "") {
-      alert("Preencha os campos...")
-      return;
-    }
-
-    addDoc(collection(db, "links"), {
-      name: nameImput,
-      url: urlImput,
-      bg: bgColorImput,
-      color: textColorImput,
-      created: new Date()
-    })
-    .then(() => {
-      setNameImput("");
-      setUrlImput("");
-      console.log("Cadastrado com sucesso!")
-    })
-    .catch((error) => {
-      console.log(error + "Erro ao cadastrar no banco de dados!")
-    })
-
-  };
-
+  //DELETE DB LINKS
   async function handleDeleteLink(id: string) {
 
     const docRef = doc(db, "links", id);
