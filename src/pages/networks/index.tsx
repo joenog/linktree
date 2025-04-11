@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { Input } from "../../components/Input";
 import { db } from "../../services/firebaseConnection";
@@ -14,7 +14,7 @@ export function Networks() {
   const [linkedin, setLinekdin] = useState("");
   const [instagram, setInstagram] = useState("");
 
-  function handleRegiste(e: FormEvent) {
+  function handleRegister(e: FormEvent) {
     e.preventDefault();
 
     setDoc(doc(db, "social", "link"), {
@@ -30,16 +30,32 @@ export function Networks() {
     })
   }
 
+  useEffect(() => {
+    function loadLinks() {
+      const docRef = doc(db, "social", 'link')
+      getDoc(docRef)
+      .then((snapshot) => {
+        if(snapshot.data() !== undefined) {
+          setGuithub(snapshot.data()?.github)
+          setLinekdin(snapshot.data()?.linkedin)
+          setInstagram(snapshot.data()?.instagram)
+        }
+      })
+    }
+
+    loadLinks()
+  }, [])
+
   return(
     <div className="flex flex-col items-center mb-7 px-2 min-h-screen">
       <Header />
 
       <h1 className="text-xl text-white font-bold mt-8 mb-4">Minhas redes sociais</h1>
-      <form className="flex flex-col max-w-lg w-full" action="" onSubmit={handleRegiste}>
+      <form className="flex flex-col max-w-lg w-full" action="" onSubmit={handleRegister}>
 
         <label className="text-white mt-2 mb-3" htmlFor="">Link do Github</label>
         <Input
-          placeholder="Digite a url do facebook..."
+          placeholder="Digite o link do facebook..."
           value={github}
           onChange={(e) => setGuithub(e.target.value)}
         />
