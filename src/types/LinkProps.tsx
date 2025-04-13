@@ -1,4 +1,4 @@
-export default interface LinkProps {
+export interface LinkProps {
   id: string,
   name: string,
   url: string,

@@ -1,5 +1,5 @@
 import { useEffect, useState} from "react";
-import LinkProps from "../../types/LinkProps";
+import { LinkProps } from "../../types/LinkProps";
 import SocialLinksProps from "../../types/SocialLinksProps";
 import { Social } from "../../components/Social"
 import { FaGithub, FaInstagram, FaLinkedin, } from "react-icons/fa"
