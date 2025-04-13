@@ -12,6 +12,7 @@ import {
   doc,
   getDoc
  } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 export function Home() {
 
@@ -73,6 +74,7 @@ export function Home() {
         <span className="text-gray-50 mb-5 mt-3">Veja meus links</span>
 
         <main className="flex flex-col w-11/12 max-w-xl">
+          
           {links.map((item) => (
             <section key={item.id} style={{ background: item.bg}} className="bg-amber-50 w-full mb-4 py-2 rounded-lg text-center transition-transform hover:scale-105">
             <a href={item.url} target="_blank">
@@ -99,6 +101,10 @@ export function Home() {
                 <Social url={socialLinks?.instagram}>
                   <FaInstagram size={35} color="#9010ff"/>
                 </Social>
+              </span>
+
+              <span className="text-amber-50 self-end">
+                <Link to={'/admin'}> {'>'} </Link>
               </span>
           </footer>
           )}
